@@ -78,10 +78,11 @@ export default function App() {
                 )}
                 <TextInput
                   placeholderTextColor={'#000'}
-                  placeholder="Enr No"
+                  placeholder="Enrollment Number"
                   onChangeText={handleChange('enrollementNo')}
                   onBlur={handleBlur('enrollementNo')}
                   value={values.enrollementNo}
+                  inputMode="numeric"
                   style={{
                     borderWidth: 1,
                     borderColor: '#ccc',
@@ -107,11 +108,11 @@ export default function App() {
                   placeholder={{
                     label: 'Select a section...',
                     value: null,
-                    color: '#9EA0A4',
+                    // color: '#9EA0A4',
                   }}
                   useNativeAndroidPickerStyle={false}
                   textInputProps={{
-                    underlineColorAndroid: 'transparent',
+                    underlineColorAndroid: '',
                   }}
                   Icon={() => {
                     return <Text style={{ fontSize: 12, color: '#666', paddingRight: 10 }}>▼</Text>;
