@@ -14,6 +14,7 @@
   "dependencies": {
     "@react-native-community/picker": "^1.8.1",
     "expo": "^54.0.0",
+    "expo-camera": "~17.0.8",
     "expo-constants": "~18.0.9",
     "expo-linking": "~8.0.8",
     "expo-router": "~6.0.12",
