@@ -44,7 +44,16 @@ export default function App() {
               // Handle form submission here
               setTimeout(() => {
                 setSubmitting(false);
-                router.push('/(tabs)/qr-code');
+
+                const student = {
+                  name: values.studentName,
+                  enrNo: values.enrollementNo,
+                  section: values.section,
+                  semester: values.semester,
+                };
+
+                // Serialize the student object as JSON string
+                router.push(`/qr-code?student=${encodeURIComponent(JSON.stringify(student))}`);
               }, 400);
             }}>
             {({
@@ -217,10 +226,3 @@ export default function App() {
     </>
   );
 }
-
-/* 
-<StatusBar style="auto" />
-        <View className="flex-1 items-center justify-center bg-gray-500">
-          <Text className="text-white">Hello, World!</Text>
-        </View>
-*/
