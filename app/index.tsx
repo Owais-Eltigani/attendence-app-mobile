@@ -1,11 +1,35 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Formik } from 'formik';
-import React from 'react';
-import { Button, Text, TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import { Button, Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function App() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const pickImage = async () => {
+    // Request permission to access media library
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      // mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    }
+  };
   return (
     <>
       {/*  reduce padding if needed */}
@@ -16,6 +40,17 @@ export default function App() {
             className="mb-[20px] text-[20px] font-bold">
             Complete Your Profile
           </Text>
+
+          {/* student picture */}
+          <TouchableOpacity
+            className="mb-10 h-28 w-28 items-center justify-center overflow-hidden rounded-full bg-gray-300"
+            onPress={pickImage}>
+            {selectedImage ? (
+              <Image source={{ uri: selectedImage }} className="h-full w-full" />
+            ) : (
+              <Text className="text-center text-sm text-gray-600">📷{'\n'}Add Photo</Text>
+            )}
+          </TouchableOpacity>
           <Formik
             initialValues={{
               studentName: '',
