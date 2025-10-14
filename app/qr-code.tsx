@@ -61,7 +61,6 @@ const Qrcode = () => {
       console.log(
         `Recording attendance for ${student.name} (${student.enrNo}) from ${student.section}, semester ${student.semester}`
       );
-      // recordAttendance(data, student);
     }
   };
 
@@ -77,7 +76,7 @@ const Qrcode = () => {
       <StatusBar hidden={true} translucent={true} />
 
       {/* scanner window */}
-      <View className="mb-6 h-[550px] items-center justify-center overflow-hidden rounded-lg bg-gray-200 shadow-lg">
+      <View className="mb-6 h-[555px] items-center justify-center overflow-hidden rounded-b-3xl  bg-gray-200 shadow-lg">
         {mode === 'camera' ? (
           <CameraMode
             handleBarcodeScanned={handleBarcodeScanned}
