@@ -12,6 +12,7 @@ export default function DiscoveryMode() {
     }, 1500);
 
     // Cleanup function
+    setLoading(false);
     return () => clearTimeout(timer);
   }, []);
 

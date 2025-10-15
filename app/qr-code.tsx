@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 // import { SafeAreaView } from 'react-native-safe-area-context'; //? enabled if run to issues with aligning in android.
-import { CameraView, Camera } from 'expo-camera';
-import { Text, View, StyleSheet, Button, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { Camera } from 'expo-camera';
+import { Text, View, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useSearchParams } from 'expo-router/build/hooks';
 import CameraMode from 'components/camera-mode';
-import DiscoveryMode from 'components/discovery-mode';
+import DiscoveryMode from 'components/bluetooth-discovery-mode';
 
 interface Student {
   name: string;

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "start": "expo start",
     "prebuild": "expo prebuild",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\" && prettier -c \"**/*.{js,jsx,ts,tsx,json}\"",
@@ -12,13 +12,14 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-community/picker": "^1.8.1",
+    "@react-native-picker/picker": "2.11.1",
     "expo": "^54.0.0",
-    "expo-barcode-scanner": "^13.0.1",
     "expo-camera": "~17.0.8",
     "expo-constants": "~18.0.9",
+    "expo-dev-client": "~6.0.15",
     "expo-image-picker": "~17.0.8",
     "expo-linking": "~8.0.8",
+    "expo-location": "^19.0.7",
     "expo-router": "~6.0.12",
     "expo-status-bar": "~3.0.8",
     "formik": "^2.4.6",
