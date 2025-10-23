@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CameraView } from 'expo-camera';
 
 export default function CameraMode({
@@ -11,6 +11,8 @@ export default function CameraMode({
   scanned: boolean;
   setScanned: (scan: boolean) => void;
 }) {
+  useEffect(() => {}, []);
+
   return (
     <View className="h-full w-full flex-1">
       <CameraView
@@ -40,7 +42,7 @@ export default function CameraMode({
       {scanned && (
         <View style={styles.dimOverlay}>
           <TouchableOpacity style={styles.scanAgainButton} onPress={() => setScanned(false)}>
-            <Text style={styles.scanAgainText}>Scan Again</Text>
+            <Text style={styles.scanAgainText}>Use camera app instead and follow instructions</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
   },
   scanAgainButton: {
     backgroundColor: '#007AFF',
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
     paddingVertical: 15,
     borderRadius: 25,
     elevation: 5,
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
   },
   scanAgainText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
   },

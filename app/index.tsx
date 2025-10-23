@@ -8,7 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
+  const [studentData, setStudentData] = useState(null);
   const pickImage = async () => {
     // Request permission to access media library
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -57,6 +57,7 @@ export default function App() {
               enrollementNo: '',
               section: '',
               semester: '',
+              editing: true,
             }}
             validate={(values) => {
               const errors: any = {};
