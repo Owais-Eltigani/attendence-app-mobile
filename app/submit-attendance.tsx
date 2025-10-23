@@ -9,10 +9,10 @@ const Submit = () => {
 
   const studentData = useSearchParams().get('student');
 
-  const SubmitStudentAttendance = () => {
-    const HOST = 'http://192.168.137.1:8080';
+  const SubmitStudentAttendance = async () => {
+    const HOST = 'http://192.168.2.1:8080';
 
-    fetch(`${HOST}'/submit-attendance'`, {
+    await fetch(`${HOST}/submit-attendance`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

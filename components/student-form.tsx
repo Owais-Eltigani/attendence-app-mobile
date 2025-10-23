@@ -51,11 +51,11 @@ const StudentForm = ({ studentData }: StudentDataProps) => {
         section: values.section,
         semester: values.semester,
         disabled: values.disabled,
-        submitAt: new Date().toISOString(),
+        submittedAt: new Date().toISOString(),
       };
 
       // Serialize the student object as JSON string
-      const path = !studentData.disabled
+      const path = studentData.disabled
         ? `/submit-attendance?student=${encodeURIComponent(JSON.stringify(student))}`
         : `/qr-code?student=${encodeURIComponent(JSON.stringify(student))}`;
       router.push(path);
