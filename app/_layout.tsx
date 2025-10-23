@@ -10,6 +10,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="qr-code" options={{ headerShown: false }} />
+        <Stack.Screen name="submit-attendance" options={{ headerShown: false }} />
       </Stack>
     </SafeAreaProvider>
   );
