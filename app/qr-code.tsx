@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useSearchParams } from 'expo-router/build/hooks';
 import CameraMode from 'components/camera-mode';
 import DiscoveryMode from 'components/bluetooth-discovery-mode';
+import BLEDiscoveryScreen from 'components/ble';
 
 interface Student {
   name: string;
@@ -84,7 +85,8 @@ const Qrcode = () => {
             setScanned={setScanned}
           />
         ) : (
-          <DiscoveryMode />
+          // <DiscoveryMode />
+          <BLEDiscoveryScreen />
         )}
       </View>
 
