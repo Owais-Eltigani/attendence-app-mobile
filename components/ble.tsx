@@ -10,6 +10,7 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import { BleManager, Device } from 'react-native-ble-plx';
+import WifiManager from 'react-native-wifi-reborn';
 
 // BLE Configuration - MUST match your Electron app
 const BLE_CONFIG = {
@@ -94,6 +95,7 @@ const BLEDiscoveryScreen = () => {
 
     // Scan for devices with our service UUID
     bleManager.startDeviceScan([BLE_CONFIG.SERVICE_UUID], null, (error, device) => {
+      console.log('Scanning...', { device });
       if (error) {
         console.error('❌ Scan error:', error);
         setIsScanning(false);
@@ -101,14 +103,15 @@ const BLEDiscoveryScreen = () => {
         return;
       }
 
-      if (device && device.name?.includes(BLE_CONFIG.DEVICE_NAME_PREFIX)) {
+      // const beacon = device?.serviceUUIDs?[0]
+      if (device && device.serviceUUIDs?.includes(BLE_CONFIG.SERVICE_UUID)) {
         console.log('✅ Found device:', device.name, device.id);
         setFoundDevice(device);
         bleManager.stopDeviceScan();
         setIsScanning(false);
 
         // Auto-connect to read credentials
-        connectAndReadCredentials(device);
+        return connectAndReadCredentials(device);
       }
     });
 
@@ -170,29 +173,35 @@ const BLEDiscoveryScreen = () => {
       await connectedDevice.cancelConnection();
       console.log('🔌 Disconnected');
 
-      // Show success
-      Alert.alert(
-        '✅ WiFi Credentials Retrieved',
-        `SSID: ${ssid}\nPassword: ${password}\n\n` +
-          'Please connect to this WiFi network to submit attendance.',
-        [
-          {
-            text: 'Copy SSID',
-            onPress: () => {
-              // TODO: Copy to clipboard
-              console.log('Copy SSID:', ssid);
+      if (Platform.OS === 'android') {
+        await WifiManager.connectToProtectedSSID(ssid, password, false, false);
+      }
+
+      if (Platform.OS === 'ios') {
+        // Show success
+        Alert.alert(
+          '✅ WiFi Credentials Retrieved',
+          `SSID: ${ssid}\nPassword: ${password}\n\n` +
+            'Please connect to this WiFi network to submit attendance.',
+          [
+            {
+              text: 'Copy SSID',
+              onPress: () => {
+                // TODO: Copy to clipboard
+                console.log('Copy SSID:', ssid);
+              },
             },
-          },
-          {
-            text: 'Copy Password',
-            onPress: () => {
-              // TODO: Copy to clipboard
-              console.log('Copy Password:', password);
+            {
+              text: 'Copy Password',
+              onPress: () => {
+                // TODO: Copy to clipboard
+                console.log('Copy Password:', password);
+              },
             },
-          },
-          { text: 'OK', style: 'default' },
-        ]
-      );
+            { text: 'OK', style: 'default' },
+          ]
+        );
+      }
     } catch (error) {
       console.error('❌ Connection error:', error);
       Alert.alert(
@@ -234,20 +243,16 @@ const BLEDiscoveryScreen = () => {
           </>
         )}
 
-        {foundDevice && !isConnecting && (
-          <View style={styles.deviceCard}>
-            <Text style={styles.deviceTitle}>✅ Server Found</Text>
-            <Text style={styles.deviceInfo}>Name: {foundDevice.name}</Text>
-            <Text style={styles.deviceInfo}>ID: {foundDevice.id}</Text>
-          </View>
-        )}
-
         {wifiCredentials && (
           <View style={styles.credentialsCard}>
             <Text style={styles.credentialsTitle}>📶 WiFi Credentials</Text>
+            <Text style={styles.deviceTitle}>✅ Server Found</Text>
+
             <View style={styles.credentialRow}>
               <Text style={styles.label}>SSID:</Text>
-              <Text style={styles.value}>{wifiCredentials.ssid}</Text>
+              <TouchableOpacity onPress={() => {}}>
+                <Text style={styles.value}>{wifiCredentials.ssid}</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.credentialRow}>
               <Text style={styles.label}>Password:</Text>
@@ -271,16 +276,19 @@ const BLEDiscoveryScreen = () => {
       </TouchableOpacity>
 
       {/* Instructions */}
-      <View style={styles.instructions}>
-        <Text style={styles.instructionTitle}>How to use:</Text>
-        <Text style={styles.instructionStep}>1. Tap Scan for Server</Text>
-        <Text style={styles.instructionStep}>2. App will find the attendance server</Text>
-        <Text style={styles.instructionStep}>
-          3. WiFi credentials will be retrieved automatically
-        </Text>
-        <Text style={styles.instructionStep}>4. Connect to the WiFi network</Text>
-        <Text style={styles.instructionStep}>5. Submit your attendance</Text>
-      </View>
+
+      {!foundDevice && (
+        <View style={styles.instructions}>
+          <Text style={styles.instructionTitle}>How to use:</Text>
+          <Text style={styles.instructionStep}>1. Tap Scan for Server</Text>
+          <Text style={styles.instructionStep}>2. App will find the attendance server</Text>
+          <Text style={styles.instructionStep}>
+            3. WiFi credentials will be retrieved automatically
+          </Text>
+          <Text style={styles.instructionStep}>4. Connect to the WiFi network</Text>
+          <Text style={styles.instructionStep}>5. Submit your attendanc</Text>
+        </View>
+      )}
     </View>
   );
 };
