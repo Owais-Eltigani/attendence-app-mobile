@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { BleManager, Device } from 'react-native-ble-plx';
 import WifiManager from 'react-native-wifi-reborn';
+import * as Clipboard from 'expo-clipboard';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 // BLE Configuration - MUST match your Electron app
 const BLE_CONFIG = {
@@ -250,13 +252,21 @@ const BLEDiscoveryScreen = () => {
 
             <View style={styles.credentialRow}>
               <Text style={styles.label}>SSID:</Text>
-              <TouchableOpacity onPress={() => {}}>
-                <Text style={styles.value}>{wifiCredentials.ssid}</Text>
+              <TouchableOpacity
+                onPress={async () => await Clipboard.setStringAsync(wifiCredentials.ssid)}>
+                <Text style={styles.value}>{wifiCredentials.ssid} </Text>
+                <Ionicons name="copy" size={16} color="#666" />
               </TouchableOpacity>
             </View>
             <View style={styles.credentialRow}>
               <Text style={styles.label}>Password:</Text>
-              <Text style={styles.value}>{wifiCredentials.password}</Text>
+              <TouchableOpacity
+                onPress={async () => await Clipboard.setStringAsync(wifiCredentials.password)}>
+                <Text style={styles.value}>
+                  {wifiCredentials.password}
+                  <Ionicons name="copy" size={16} color="#666" />
+                </Text>
+              </TouchableOpacity>
             </View>
             <Text style={styles.instructionText}>
               💡 Connect to this WiFi network to submit your attendance
