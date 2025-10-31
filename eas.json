@@ -12,6 +12,9 @@
         "env": {
           "EXPO_USE_FAST_RESOLVER": "1"
         }
+      },
+      "ios": {
+        "simulator": true
       }
     },
     "preview": {
@@ -21,6 +24,9 @@
         "env": {
           "EXPO_USE_FAST_RESOLVER": "1"
         }
+      },
+      "ios": {
+        "simulator": true
       }
     },
     "production": {

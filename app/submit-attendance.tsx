@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const Submit = () => {
   //   Alert.alert('Caution', 'Make sure you scanned the first QR code and connected to the Sessions');
-  const [student, setStudent] = useState({
+  const [student, _setStudent] = useState({
     studentName: 'Dexter',
     enrollementNo: '220160203019',
     section: 'A',
@@ -40,17 +40,13 @@ const Submit = () => {
     const studentData = {
       studentName: values.studentName,
       enrollmentNo: values.enrollementNo,
-      sessionId: 'B-4682',
+      sessionId: 'B-4074',
       section: values.section,
       submittedAt,
     };
 
     //? a way to timeout fetch requests after  3 seconds
-    // const controller = new AbortController();
-    // const REQUEST_TIMEOUT_MS = 3000; // timeout for the fetch itself
-    // const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
-    // setTimeout(async () => {
     setSubmitting(true);
     await fetch(`${HOST}/submit-attendance`, {
       method: 'POST',

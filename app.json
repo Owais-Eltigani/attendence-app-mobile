@@ -15,8 +15,8 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow $(Attendance App) to access your camera",
-          "microphonePermission": "Allow $(Attendance App) to access your microphone",
+          "cameraPermission": "Allow $(ASAM) to access your camera",
+          "microphonePermission": "Allow $(ASAM) to access your microphone",
           "recordAudioAndroid": true
         }
       ],
@@ -34,7 +34,7 @@
             "peripheral",
             "central"
           ],
-          "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to bluetooth devices"
+          "bluetoothAlwaysPermission": "Allow $(ASAM) to connect to bluetooth devices"
         }
       ]
     ],
